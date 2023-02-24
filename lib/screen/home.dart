@@ -1,112 +1,92 @@
-
-
 import 'package:flutter/material.dart';
 import 'package:manabees_app_mobile/routes/routes.dart';
-import 'package:manabees_app_mobile/services/MySqlDatabase_helper.dart';
-import 'package:manabees_app_mobile/utilities/notifications.dart';
 
-import '../models/User_model.dart';
-
-//FirebaseAuth.instance.currentUser
-
-class Home extends StatefulWidget {
+class Home extends StatelessWidget {
   const Home({Key? key}) : super(key: key);
-
-  @override
-  _HomePageState createState() => _HomePageState();
-}
-
-class _HomePageState extends State<Home> with TickerProviderStateMixin {
-  String mot = "";
-  final myController = TextEditingController();
-  final myControllerPrenom = TextEditingController();
-  final myControllerMail = TextEditingController();
-  final myControllerMdp = TextEditingController();
-
-
-
-
-  @override
-  void initState() {
-    super.initState();
-  }
-
-  @override
-  void dispose() {
-    myController.dispose();
-    super.dispose();
-  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: Center(
-            child: SafeArea(
-                child: Center(
-      child: Column(
-        children: <Widget>[
-          Text(myController.text),
-          TextField(
-            controller: myController,
-            decoration: InputDecoration(
-              border: OutlineInputBorder(),
-              hintText: 'Enter a search term',
-            ),
+      body: SafeArea(
+        child: Container(
+          width: double.infinity,
+          height: MediaQuery.of(context).size.height,
+          padding: EdgeInsets.symmetric(horizontal: 30, vertical: 50),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: <Widget>[
+              Column(
+                children: <Widget>[
+                  Text(
+                    "Benvenue",
+                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 30),
+                  ),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  Text(
+                    "Benvenue sur Manabees App Mobile",
+                    style: TextStyle(color: Colors.grey[700], fontSize: 15),
+                  )
+                ],
+              ),
+              /*Container(
+                height: MediaQuery.of(context).size.height/3,
+                decoration: BoxDecoration(
+                  image: DecorationImage(image: )
+                )
+              )*/
+              Column(
+                children: <Widget>[
+                  MaterialButton(
+                    minWidth: double.infinity,
+                    height: 60,
+                    onPressed: () {
+                      Navigator.pushNamed(context, kLoginRoute);
+                    },
+                    shape: RoundedRectangleBorder(
+                      side: BorderSide(
+                        color: Colors.black
+                      ),
+                      borderRadius: BorderRadius.circular(50),
+                    ),
+                    child: Text(
+                      "Login",
+                      style: TextStyle(
+                        fontWeight: FontWeight.w600,
+                        fontSize: 18
+                      ),
+                    ),
+                  ),
+                  SizedBox(height: 20,),
+                  MaterialButton(
+                    minWidth: double.infinity,
+                    height: 60,
+                    onPressed: () {
+                      Navigator.pushNamed(context, kRegisterRoute);
+                    },
+                    shape: RoundedRectangleBorder(
+                      side: BorderSide(
+                          color: Colors.black
+                      ),
+                      borderRadius: BorderRadius.circular(50),
+                    ),
+                    color: Colors.amber,
+                    child: Text(
+                      "Sign up",
+                      style: TextStyle(
+                          fontWeight: FontWeight.w600,
+                          fontSize: 18
+                      ),
+                    ),
+                  )
+                ],
+              )
+            ],
           ),
-          TextField(
-            controller: myControllerPrenom,
-            decoration: InputDecoration(
-              border: OutlineInputBorder(),
-              hintText: 'Enter a search term',
-            ),
-          ),
-          TextField(
-            controller: myControllerMail,
-            decoration: InputDecoration(
-              border: OutlineInputBorder(),
-              hintText: 'Enter a search term',
-            ),
-          ),
-          TextField(
-            controller: myControllerMdp,
-            decoration: InputDecoration(
-              border: OutlineInputBorder(),
-              hintText: 'Enter a search term',
-            ),
-          ),
-          TextButton(
-              onPressed: () async{
-                final User user = User( nom: myController.text, prenom: myControllerPrenom.text, mail: myControllerMail.text, mdp: myControllerMdp.text);
-
-                  MySqlDatabase_helper().addUser(user);
-                  Navigator.pushNamed(context, kCalendar);
-
-
-
-                /*showDialog(
-                  context: context,
-                  builder: (context) {
-                    return AlertDialog(
-                      // Retrieve the text the that user has entered by using the
-                      // TextEditingController.
-                      content: Text(myController.text),
-
-                    );
-                  },
-                );*/
-
-                //SendErrorNotification(context, myController.text);
-                //SendDataNotification(context, myController.text);
-
-                Text('vous devez mettre des information');
-
-                //Navigator.pushNamed(context, kCalendar);
-
-              },
-              child: Text('Ajouter Texte'))
-        ],
+        ),
       ),
-    ))));
+    );
   }
 }
-

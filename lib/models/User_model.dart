@@ -13,13 +13,17 @@ class User {
     required this.mdp,
   });
 
-  factory User.fromJson(Map<String, dynamic> json) => User(
-        IdUser: json['IdUser'],
-        nom: json['nom'],
-        prenom: json['prenom'],
-        mail: json['mail'],
-        mdp: json['mdp'],
-      );
+  factory User.fromJson(Map<String, dynamic> json){
+    return User(
+      IdUser: json['IdUser'],
+      nom: json['nom'],
+      prenom: json['prenom'],
+      mail: json['mail'],
+      mdp: json['mdp'],
+    );
+  }
+
+
 
   Map<String, dynamic> toJson() => {
         'IdUser': IdUser,
@@ -28,6 +32,8 @@ class User {
         'mail': mail,
         'mdp': mdp
       };
+
+
 
   @override
   String toString() {

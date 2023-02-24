@@ -1,23 +1,25 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_session/flutter_session.dart';
 import 'package:intl/intl.dart';
 import 'package:manabees_app_mobile/screen/CalendarWidget.dart';
 import 'package:manabees_app_mobile/screen/FloatingActionScreen.dart';
+import 'package:manabees_app_mobile/screen/home.dart';
 
+import '../models/User_model.dart';
 import '../models/note_model.dart';
 
 class CalendarScreen extends StatefulWidget {
-
-  const CalendarScreen({Key? key,}) : super(key: key);
-
+  const CalendarScreen({
+    Key? key,
+  }) : super(key: key);
 
   @override
   State<CalendarScreen> createState() => _CalendarScreenState();
 }
 
 class _CalendarScreenState extends State<CalendarScreen> {
-
   @override
   void initState() {
     // TODO: implement initState
@@ -25,24 +27,24 @@ class _CalendarScreenState extends State<CalendarScreen> {
     super.initState();
   }
 
-
-
-
-
-
-
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       appBar: AppBar(
-        title: Text('Bonjour sur mon App'),
+        title: Text('Bonjour '),
       ),
-      body: CalendarWidget(),
+      body:
+
+          //CalendarWidget(),
+      FutureBuilder(
+          future: FlutterSession().get("token"),
+          builder: (context, snapshot) {
+            return Text(snapshot.hasData ? snapshot.data : "loading ...");
+          }),
+
       floatingActionButton: FloatingActionScreen(),
     );
   }
-
 }
 
 var selectedDate;
