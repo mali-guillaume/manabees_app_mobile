@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_session/flutter_session.dart';
 import 'package:intl/intl.dart';
+import 'package:manabees_app_mobile/partials/sidebar/sidebar.dart';
 import 'package:manabees_app_mobile/screen/CalendarWidget.dart';
 import 'package:manabees_app_mobile/screen/FloatingActionScreen.dart';
 import 'package:manabees_app_mobile/screen/home.dart';
@@ -30,6 +31,14 @@ class _CalendarScreenState extends State<CalendarScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      drawer: Theme(
+        data: Theme.of(context).copyWith(
+          canvasColor: Colors.transparent,
+        ),
+        child: const Drawer(
+          child: SidebarScreen(),
+        ),
+      ),
       appBar: AppBar(
         title: Text('Bonjour '),
       ),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_session/flutter_session.dart';
 import 'package:manabees_app_mobile/models/User_model.dart';
 import 'package:manabees_app_mobile/routes/routes.dart';
 import 'package:manabees_app_mobile/services/user_service.dart';
@@ -88,8 +89,9 @@ class LoginForm extends StatelessWidget {
                         _futureint!.then((value) {
                           _futureUser =
                               httpService().verifyUserandPassword(mail, mdp);
-                          _futureUser!.then((value) {
-                            Navigator.pushNamed(context, kCalendar);
+                          _futureUser!.then((value) async {
+                            await FlutterSession().set("token",mail);
+                            Navigator.pushNamed(context, kHOMERoute);
                           }).catchError((onError) {
                             ScaffoldMessenger.of(context).showSnackBar(
                                 SnackBar(content: Text(onError.toString())));

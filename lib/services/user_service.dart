@@ -6,6 +6,11 @@ import 'package:manabees_app_mobile/models/User_model.dart';
 import 'package:http/http.dart' as http;
 
 class httpService {
+  /// Il crée un utilisateur dans la base de données.
+  ///
+  /// @param user L'objet utilisateur à créer.
+  ///
+  /// @return Un futur<utilisateur>
   Future<User> createUser(User user) async {
     print(user.toJson());
     final response = await http.post(
