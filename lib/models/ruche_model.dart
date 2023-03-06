@@ -27,7 +27,6 @@ class Ruche {
       idRucher: json['idRucher'],
       idProprietaire: json['idProprietaire']);
 
-
   Map<String, dynamic> toJson() => {
         'hiveid': hiveid,
         'nom': nom,
