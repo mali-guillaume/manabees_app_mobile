@@ -1,9 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:manabees_app_mobile/partials/form/text_input.dart';
 import 'package:manabees_app_mobile/partials/sidebar/sidebar.dart';
+import 'package:manabees_app_mobile/services/user_service.dart';
 import 'package:manabees_app_mobile/style/constants.dart';
 
+import '../models/ruche_model.dart';
 import '../partials/form/search_input.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
+import 'dart:async';
 
 class RucheScreen extends StatefulWidget {
   const RucheScreen({Key? key}) : super(key: key);
@@ -14,6 +19,7 @@ class RucheScreen extends StatefulWidget {
 
 class _RucheScreenState extends State<RucheScreen> {
   String ruche = "";
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -39,14 +45,57 @@ class _RucheScreenState extends State<RucheScreen> {
                 ),
                 SearchInput(onChanged: (value) {
                   ruche = value;
-
                 }),
-
               ],
-            )
+            ),
+            Expanded(
+                child: FutureBuilder<List<Ruche>>(
+              future: httpService().getRuches(),
+              builder: (context, snapshot) {
+                print("snapshot");
+                print(snapshot.data);
+                if (snapshot.hasData) {
+                  return ListView.builder(
+                    itemCount: snapshot.data!.length,
+                    itemBuilder: (context, index) {
+                      return Container(
+                        child: Column(
+                          children: <Widget>[
+                            GestureDetector(
+                              onTap: null,
+                              child: new Container(
+                                width: 500.0,
+                                padding: new EdgeInsets.fromLTRB(
+                                    20.0, 40.0, 20.0, 40.0),
+                                color: Colors.green,
+                                child: new Column(children: [
+                                  new Text(snapshot.data![index].toString()),
+                                ]),
+                              ),
+                            ),
+                            SizedBox(
+                              height: 20,
+                            ),
+                          ],
+                        ),
+                      );
+                    },
+                  );
+
+
+
+                } else if (snapshot.hasError) {
+                  return Text("${snapshot.error}");
+                }
+
+                // By default, show a loading spinner.
+                return CircularProgressIndicator();
+              },
+            ))
           ],
         ),
       ),
     );
   }
 }
+
